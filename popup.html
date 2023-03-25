@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <h1>GPT-3.5 Translator</h1>
+
+    <div id="api-key-container">
+      <h2>Enter API Key</h2>
+      <form id="apiKeyForm">
+        <input type="text" id="apiKeyInput" placeholder="Enter your API key" />
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+    <div id="translation-container" style="display: none;">
+      <form id="translateForm">
+        <textarea id="inputText" placeholder="Enter the text you want to translate"></textarea>
+        <select id="targetLanguage"></select>
+        <button type="submit" id="translateButton">Translate</button>
+      </form>
+      <div id="result"></div>
+      <button id="copyButton" style="display: none;">Copy</button>
+    </div>
+
+    <script src="api.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>

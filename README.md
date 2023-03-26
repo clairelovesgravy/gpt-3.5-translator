@@ -18,15 +18,15 @@ This Chrome extension allows you to translate selected text on web pages using t
 - The extension is now installed and an icon should appear in your browser's toolbar.
 
 ## Usage
-Click on the extension icon to open the popup.
-If you are using the extension for the first time, you will need to enter your OpenAI API key. Click "Submit" to save the key for future use.
-Select the text you want to translate on a web page.
-Click on the extension icon again to display the selected text in the input field.
-Choose the target language from the dropdown menu.
-Click the "Translate" button to start the translation. The button will be disabled, and a "Loading..." message will be displayed while the translation is in progress.
-The translated text will appear below the input field. A "Copy" button will also be displayed, allowing you to easily copy the translation result to your clipboard.
-Contributing
-If you have any suggestions or improvements, feel free to create a fork and submit a pull request. We appreciate your contributions!
+- Click on the extension icon to open the popup.
+- If you are using the extension for the first time, you will need to enter your OpenAI API key. Click "Submit" to save the key for future use.
+- Select the text you want to translate on a web page.
+- Click on the extension icon again to display the selected text in the input field.
+- Choose the target language from the dropdown menu.
+- Click the "Translate" button to start the translation. The button will be disabled, and a "Loading..." message will be displayed while the translation is in progress.
+- The translated text will appear below the input field. A "Copy" button will also be displayed, allowing you to easily copy the translation result to your clipboard.
+- Contributing
+- If you have any suggestions or improvements, feel free to create a fork and submit a pull request. We appreciate your contributions!
 
 ## License
 This project is licensed under the MIT License. See the LICENSE file for details.

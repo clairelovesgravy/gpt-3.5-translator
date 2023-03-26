@@ -3,19 +3,19 @@
 This Chrome extension allows you to translate selected text on web pages using the GPT-3.5-turbo model by OpenAI. It's easy to use, fast, and provides high-quality translations.
 
 ## Features
-Translate selected text in a webpage
-Support for multiple target languages
-API key configuration on the first use
-Loading indicator while the translation is in progress
-Copy translation results to clipboard
+- Translate selected text in a webpage
+- Support for multiple target languages
+-  API key configuration on the first use
+- Loading indicator while the translation is in progress
+- Copy translation results to clipboard
 
 ## Installation
-Clone or download this repository to your local machine.
-Open Chrome and navigate to chrome://extensions/.
-Enable "Developer mode" by toggling the switch in the top right corner.
-Click on the "Load unpacked" button.
-Navigate to the folder containing the extension's source code and click "Select Folder" (or "Open" depending on your operating system).
-The extension is now installed and an icon should appear in your browser's toolbar.
+- Clone or download this repository to your local machine.
+- Open Chrome and navigate to chrome://extensions/.
+- Enable "Developer mode" by toggling the switch in the top right corner.
+- Click on the "Load unpacked" button.
+- Navigate to the folder containing the extension's source code and click "Select Folder" (or "Open" depending on your operating system).
+- The extension is now installed and an icon should appear in your browser's toolbar.
 
 ## Usage
 Click on the extension icon to open the popup.

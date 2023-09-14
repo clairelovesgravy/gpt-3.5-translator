@@ -51,6 +51,25 @@ for (const key in supported_languages) {
   targetLanguageSelect.appendChild(option);
 }  
 
+async function saveSelectedLanguage(lang) {
+ return new Promise((resolve) => {
+   chrome.storage.local.set({ selectedLanguage: lang }, () => {
+     resolve();
+   });
+ });
+}
+
+async function getSelectedLanguage() {
+ return new Promise((resolve) => {
+   chrome.storage.local.get("selectedLanguage", (data) => {
+     resolve(data.selectedLanguage || "English");
+   });
+ });
+}
+
+targetLanguage.addEventListener("change", async (event) => {
+  await saveSelectedLanguage(event.target.value);
+});
 
 function showApiKeyForm() {
   document.getElementById("api-key-container").style.display = "block";
@@ -178,6 +197,10 @@ document.addEventListener("DOMContentLoaded", async () => {
   } else {
     showApiKeyForm();
   }
+
+  //Load and set the selected language
+  const selectedLang = await getSelectedLanguage();
+  targetLanguage.value = selectedLang;
 
   // Load and display translated contents
   const translations = await getTranslations();

@@ -51,6 +51,25 @@ for (const key in supported_languages) {
   targetLanguageSelect.appendChild(option);
 }  
 
+async function saveSelectedLanguage(lang) {
+ return new Promise((resolve) => {
+   chrome.storage.local.set({ selectedLanguage: lang }, () => {
+     resolve();
+   });
+ });
+}
+
+async function getSelectedLanguage() {
+ return new Promise((resolve) => {
+   chrome.storage.local.get("selectedLanguage", (data) => {
+     resolve(data.selectedLanguage || "English");
+   });
+ });
+}
+
+targetLanguage.addEventListener("change", async (event) => {
+  await saveSelectedLanguage(event.target.value);
+});
 
 function showApiKeyForm() {
   document.getElementById("api-key-container").style.display = "block";
@@ -77,7 +96,23 @@ async function saveApiKey(value) {
     });
   });
 }
+async function saveTranslation(inputText, translatedText) {
+  const translations = await getTranslations();
+  translations.push({ inputText, translatedText });
+  return new Promise((resolve) => {
+    chrome.storage.sync.set({ translations }, () => {
+      resolve();
+    });
+  });
+}
 
+async function getTranslations() {
+  return new Promise((resolve) => {
+    chrome.storage.sync.get("translations", (data) => {
+      resolve(data.translations || []);
+    });
+  });
+}
 document.getElementById("apiKeyForm").addEventListener("submit", async (event) => {
   event.preventDefault();
   apiKey = document.getElementById("apiKeyInput").value;
@@ -116,7 +151,13 @@ function copyToClipboard(text) {
   document.body.removeChild(textarea);
 }
 
-
+async function clearTranslations() {
+  return new Promise((resolve) => {
+    chrome.storage.sync.set({ translations: [] }, () => {
+      resolve();
+    });
+  });
+}
 
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -128,6 +169,9 @@ form.addEventListener("submit", async (event) => {
     const translatedText = await translateText(text, language, apiKey);
     result.textContent = `Translated text: ${translatedText}`;
     document.getElementById("copyButton").style.display = "block"; // Show the "Copy" button
+
+    // Save the translation
+    await saveTranslation(text, translatedText);
   } catch (error) {
     result.textContent = "Error: Unable to translate the text.";
     console.error(error);
@@ -140,6 +184,10 @@ document.getElementById("copyButton").addEventListener("click", () => {
   copyToClipboard(result.textContent);
 });
 
+document.getElementById("clearTranslationsButton").addEventListener("click", async () => {
+  await clearTranslations();
+  document.getElementById("translationsContainer").innerHTML = '';
+});
 
 // At the end of the popup.js file, add the following lines：
 document.addEventListener("DOMContentLoaded", async () => {
@@ -149,4 +197,17 @@ document.addEventListener("DOMContentLoaded", async () => {
   } else {
     showApiKeyForm();
   }
+
+  //Load and set the selected language
+  const selectedLang = await getSelectedLanguage();
+  targetLanguage.value = selectedLang;
+
+  // Load and display translated contents
+  const translations = await getTranslations();
+  const translationsContainer = document.getElementById("translatedContainer");
+  translations.forEach((translation) => {
+    const translationElement = document.createElement("div");
+    translationElement.textContent = `Input: ${translation.inputText}, Translated: ${translation.translatedText}`;
+    translationsContainer.appendChild(translationElement);
+  });
 });
